@@ -1,0 +1,45 @@
+name: Gabriadze Ticket Monitor
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      test_telegram:
+        description: 'Отправить тестовое сообщение в Telegram?'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  check-tickets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Скачивание кода репозитория
+        uses: actions/checkout@v4
+
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Установка зависимостей и браузера Playwright
+        run: |
+          pip install requests playwright
+          playwright install --with-deps chromium
+
+      - name: Запуск проверки билетов
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ "${{ github.event.inputs.test_telegram }}" == "true" ]; then
+            python check_tickets.py --test
+          else
+            python check_tickets.py
+          fi
