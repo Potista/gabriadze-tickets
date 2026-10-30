@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright
 # ==========================================
 # НАСТРОЙКИ ДАТ ДЛЯ ПОИСКА БИЛЕТОВ
 # ==========================================
-TARGET_MONTH = 1          # Номер месяца (1 — январь, 2 — февраль, 12 — декабрь и т.д.)
+TARGET_MONTH = 11          # Номер месяца (1 — январь, 2 — февраль, 12 — декабрь и т.д.)
 TARGET_DAYS = [5, 6]      # Список нужных чисел месяца (например: [5, 6] или [10, 11, 12])
 # ==========================================
 
@@ -66,12 +66,12 @@ def build_targets(month, days):
     return [
         {
             "name": "Официальный сайт театра (RU)",
-            "url": "https://gabriadze.com/ru/tickets/",
+            "url": "hhttp://gabriadze.com/performances",
             "keywords": ru_kw
         },
         {
             "name": "Официальный сайт театра (EN)",
-            "url": "https://gabriadze.com/en/tickets/",
+            "url": "http://gabriadze.com/performances",
             "keywords": en_kw
         },
         {
@@ -81,7 +81,7 @@ def build_targets(month, days):
         },
         {
             "name": "TKT.GE (Поиск по театру Габриадзе — KA)",
-            "url": "https://tkt.ge/ka/search?q=%E1%83%92%E1%83%90%E1%83%91%E1%83%A0%E1%83%98%E1%83%90%E1%83%AB%E1%83%94",
+            "url": "https://tkt.ge/ru/bilety-v-teatr/gabriadze-theatre",
             "keywords": tkt_ka_kw
         }
     ]
